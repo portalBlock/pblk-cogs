@@ -58,5 +58,5 @@ class UnflipperCog(commands.Cog):
     @_unflipper_random.command("random")
     async def unflipper_random_percent(self, ctx: commands.Context, percent: int):
         """Enables or disables the cog for the guild. `[p]unflipper random percent <percent as integer>`"""
-        await self.config.guild(ctx.guild).random_percent.set(percent)
+        await self.config.guild(ctx.guild).random_percent.set(percent / 100)
         await ctx.channel.send(f"Flipper random percent: {percent}%")
