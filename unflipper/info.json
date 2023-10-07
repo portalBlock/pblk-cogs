@@ -1,0 +1,12 @@
+{
+  "author": [
+    "portalBlock"
+  ],
+  "short": "Table Unflipper",
+  "description": "Unflips tables user flipped",
+  "disabled": false,
+  "name": "unflipper",
+  "tags": [],
+  "install_msg": "Usage: `[p]unflipper`",
+  "min_bot_version": "3.5.1"
+}
