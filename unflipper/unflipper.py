@@ -25,7 +25,7 @@ class UnflipperCog(commands.Cog):
             return
         if not await self.config.guild(message.guild).enabled():
             return
-        if "(╯°□°)╯︵ ┻━┻" in message.content or "(ノಠ益ಠ)ノ彡┻━┻" in message.content:
+        if "(╯°□°)╯︵ ┻━┻" in message.content or "(ノಠ益ಠ)ノ彡┻━┻" in message.content or "(┛ಠ_ಠ)┛彡┻━┻" in message.content:
             if await self.config.guild(message.guild).random():
                 conf_percent = await self.config.guild(message.guild).random_percent()
                 percentage_chance = 1 - conf_percent
