@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 from redbot.core import commands, Config
 
@@ -12,8 +12,9 @@ class CountdownCog(commands.Cog):
 
     @commands.command("countdown")
     async def countdown(self, ctx: commands.Context):
-        now = datetime.now()
-        later = datetime(year=2024, month=3, day=15, hour=16, minute=30)
+        tz = timezone(timedelta(hours=-5))
+        now = datetime.now(tz)
+        later = datetime(year=2024, month=3, day=15, hour=16, minute=30, tzinfo=tz)
         diff = later - now
         days = diff.days
         hours, remainder = divmod(diff.seconds, 3600)
