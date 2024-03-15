@@ -14,7 +14,7 @@ class CountdownCog(commands.Cog):
     async def countdown(self, ctx: commands.Context):
         tz = timezone(timedelta(hours=-5))
         now = datetime.now(tz)
-        later = datetime(year=2024, month=3, day=15, hour=16, minute=30, tzinfo=tz)
+        later = datetime(year=2024, month=3, day=18, hour=16, minute=30, tzinfo=tz)
         diff = later - now
         days = diff.days
         hours, remainder = divmod(diff.seconds, 3600)
