@@ -1,0 +1,12 @@
+{
+  "author": [
+    "portalBlock"
+  ],
+  "short": "Countdown",
+  "description": "Countdown to a specific point in time. Probably useless to most people.",
+  "disabled": false,
+  "name": "countdown",
+  "tags": [],
+  "install_msg": "Usage: `[p]countdown`",
+  "min_bot_version": "3.5.1"
+}
