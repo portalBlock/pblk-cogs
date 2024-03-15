@@ -13,9 +13,10 @@ class CountdownCog(commands.Cog):
     @commands.command("countdown")
     async def countdown(self, ctx: commands.Context):
         now = datetime.now()
-        later = datetime(year=2024, month=3, day=14, hour=16, minute=30)
+        later = datetime(year=2024, month=3, day=15, hour=16, minute=30)
         diff = later - now
+        days = diff.days
         hours, remainder = divmod(diff.seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
 
-        await ctx.send(f"{hours} hours, {minutes} minutes, and {seconds} seconds left!!!")
+        await ctx.send(f"{days} days, {hours} hours, {minutes} minutes, and {seconds} seconds left!!!")
