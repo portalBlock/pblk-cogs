@@ -17,17 +17,18 @@ class ImagezCog(commands.Cog):
 
         self.config = ImagezConfigHelper(self._base_path)
 
-    @commands.group("imagez", pass_context=True)
+    @commands.guild_only()
+    @commands.group(name="imagez", pass_context=True)
     async def _imagez(self, ctx: commands.Context):
         """Manages the imagez data"""
         pass
 
-    @_imagez.group("font")
+    @_imagez.group(name="font")
     async def _imagez_font(self):
         """Manages imagez fonts."""
         pass
 
-    @_imagez_font.command("download")
+    @_imagez_font.command(name="download")
     async def _imagez_font_download(self, ctx: commands.Context, name: str, link: str):
         """Downloads a font for use in images."""
         if not link.startswith("https://") or not link.endswith(".ttf"):
@@ -36,7 +37,7 @@ class ImagezCog(commands.Cog):
         wrapper = await self.config.download_file(ctx, "font", link, name, ctx.author)
         await ctx.send(f"Downloaded `{wrapper.name}` as `{wrapper.guid}`.")
 
-    @_imagez_font.command("delete")
+    @_imagez_font.command(name="delete")
     async def _imagez_font_delete(self, ctx: commands.Context, name: str):
         """Deletes a font from the system."""
         pass
