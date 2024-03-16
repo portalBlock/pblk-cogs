@@ -24,7 +24,7 @@ class ImagezCog(commands.Cog):
         pass
 
     @_imagez.group(name="font")
-    async def _imagez_font(self):
+    async def _imagez_font(self, ctx: commands.Context):
         """Manages imagez fonts."""
         pass
 
