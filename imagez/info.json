@@ -1,0 +1,12 @@
+{
+  "author": [
+    "portalBlock"
+  ],
+  "short": "Imagez",
+  "description": "Provides a utility to save and manipulate images.",
+  "disabled": false,
+  "name": "imagez",
+  "tags": [],
+  "install_msg": "Usage: `[p]imagez`",
+  "min_bot_version": "3.5.1"
+}
