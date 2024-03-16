@@ -69,8 +69,8 @@ class ImagezConfigHelper(ImagezConfigHelperABC):
             file_path = self.image_path / file_name
         else:
             file_path = self.base_path / file_name
-            print(f"Warning: Unknown file context ({file_context}), "
-                  f"saving to base cog path. File will be unusable. GUID: {guid}.")
+            await ctx.send(f"Warning: Unknown file context ({file_context}), "
+                           f"saving to base cog path. File will be unusable. GUID: {guid}.")
 
         urllib.request.urlretrieve(link, filename=file_path.resolve())
 
