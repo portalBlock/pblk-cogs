@@ -1,0 +1,12 @@
+{
+  "author": [
+    "portalBlock"
+  ],
+  "short": "BMM",
+  "description": "Decide whether to get BMM today. Results are binding and enforced by witchcraft.",
+  "disabled": false,
+  "name": "bmm",
+  "tags": [],
+  "install_msg": "Usage: `[p]bmm`",
+  "min_bot_version": "3.5.1"
+}
