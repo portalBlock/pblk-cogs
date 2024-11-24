@@ -1,0 +1,12 @@
+{
+  "author": [
+    "portalBlock"
+  ],
+  "short": "XMASYet",
+  "description": "Asks if it's Christmas yet, every day!",
+  "disabled": false,
+  "name": "xmasyet",
+  "tags": [],
+  "install_msg": "Usage: `[p]xmasyet`",
+  "min_bot_version": "3.5.1"
+}
