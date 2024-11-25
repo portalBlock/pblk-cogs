@@ -8,31 +8,37 @@ from redbot.core.bot import Red
 class XMASYetCog(commands.Cog):
     """XMASYet Cog"""
 
+    async def debug(self, message: str):
+        out = self.bot.get_channel(int(await self.config.debug()))
+        if out is not None:
+            await out.send(message)
+
     @tasks.loop(time=time(hour=11, minute=59))
     async def ask_xmasyet(self):
         async with self.config.channels() as channels:
-            print(f'[XMASYet] Firing!')
+            await self.debug(f'[XMASYet] Firing!')
             for cid, val in channels.items():
                 if val:
                     c = self.bot.get_channel(int(cid))
                     if c is not None:
                         await c.send("Is it Christmas yet?")
                     else:
-                        print(f'[XMASYet] None channel: {cid}')
+                        await self.debug(f'[XMASYet] None channel: {cid}')
                 else:
-                    print(f'[XMASYet] Disabled channel: {cid}')
+                    await self.debug(f'[XMASYet] Disabled channel: {cid}')
 
     def __init__(self, bot: Red):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=1289862744207523841005)
 
         global_default_config = {
+            "debug": "",
             "channels": {}
         }
 
         self.config.register_global(**global_default_config)
 
-        print(f'[XMASYet] Loading timed task!')
+        await self.debug(f'[XMASYet] Loading timed task!')
         self.ask_xmasyet.start()
 
     @commands.guild_only()
@@ -47,6 +53,13 @@ class XMASYetCog(commands.Cog):
         async with self.config.channels() as channels:
             channels[str(ctx.channel.id)] = enable
         await ctx.channel.send(f"XMASYet enabled: {enable}!")
+
+    @checks.is_owner()
+    @_xmasyet.command("debug")
+    async def _xmasyet_debug(self, ctx: commands.Context):
+        """Sets the global debug output channel. [p]xmasyet debug"""
+        await self.config.debug.set(str(ctx.channel.id))
+        await ctx.channel.send(f"XMASYet debug output set to this channel!")
 
     @checks.is_owner()
     @_xmasyet.command("set")
