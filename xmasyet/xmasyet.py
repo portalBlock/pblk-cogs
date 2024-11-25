@@ -14,7 +14,7 @@ class XMASYetCog(commands.Cog):
             print(f'[XMASYet] Firing!')
             for cid, val in channels.items():
                 if val:
-                    c = self.bot.get_channel(cid)
+                    c = self.bot.get_channel(int(cid))
                     if c is not None:
                         await c.send("Is it Christmas yet?")
                     else:
@@ -32,6 +32,7 @@ class XMASYetCog(commands.Cog):
 
         self.config.register_global(**global_default_config)
 
+        print(f'[XMASYet] Loading timed task!')
         self.ask_xmasyet.start()
 
     @commands.guild_only()
@@ -44,7 +45,7 @@ class XMASYetCog(commands.Cog):
     async def _xmasyet_enable(self, ctx: commands.Context, enable: bool):
         """Enables or disables the cog for the channel. [p]xmasyet enable <true|false>"""
         async with self.config.channels() as channels:
-            channels[ctx.channel.id] = enable
+            channels[str(ctx.channel.id)] = enable
         await ctx.channel.send(f"XMASYet enabled: {enable}!")
 
     @checks.is_owner()
