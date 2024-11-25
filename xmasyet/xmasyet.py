@@ -15,6 +15,9 @@ class XMASYetCog(commands.Cog):
 
     @tasks.loop(time=time(hour=11, minute=59))
     async def ask_xmasyet(self):
+        await self.publish_ask()
+
+    async def publish_ask(self):
         await self.debug(f'[XMASYet] Firing!')
         async with self.config.channels() as channels:
             for cid, val in channels.items():
@@ -38,7 +41,6 @@ class XMASYetCog(commands.Cog):
 
         self.config.register_global(**global_default_config)
 
-        self.debug(f'[XMASYet] Loading timed task!')
         self.ask_xmasyet.start()
 
     @commands.guild_only()
@@ -67,3 +69,10 @@ class XMASYetCog(commands.Cog):
         """Updates the daily run time. [p]xmasyet set <hours> <minutes>"""
         self.ask_xmasyet.change_interval(time=time(hour=hour, minute=minute))
         await ctx.channel.send(f"XMASYet run time updated!")
+
+    @checks.is_owner()
+    @_xmasyet.command("run")
+    async def _xmasyet_run(self, ctx: commands.Context):
+        """Forces a manual run. [p]xmasyet run"""
+        await ctx.send("Manually running!")
+        await self.publish_ask()
