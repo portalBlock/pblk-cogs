@@ -29,22 +29,17 @@ class XMASYetCog(commands.Cog):
         if out is not None:
             await out.send(message)
 
-    @tasks.loop(time=datetime.time(hour=2, minute=0, tzinfo=datetime.timezone.utc))
+    @tasks.loop(time=datetime.time(hour=23, minute=59, tzinfo=datetime.timezone.utc))
     async def ask_xmasyet(self):
         await self.publish_ask()
 
     async def publish_ask(self):
-        await self.debug(f'[XMASYet] Firing!')
         async with self.config.channels() as channels:
             for cid, val in channels.items():
                 if val:
                     c = self.bot.get_channel(int(cid))
                     if c is not None:
                         await c.send("Is it Christmas yet?")
-                    else:
-                        await self.debug(f'[XMASYet] None channel: {cid}')
-                else:
-                    await self.debug(f'[XMASYet] Disabled channel: {cid}')
 
     @commands.guild_only()
     @checks.mod()
