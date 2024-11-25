@@ -13,10 +13,10 @@ class XMASYetCog(commands.Cog):
         if out is not None:
             await out.send(message)
 
-    @tasks.loop(time=time(hour=1, minute=19))
+    @tasks.loop(time=time(hour=11, minute=59))
     async def ask_xmasyet(self):
+        await self.debug(f'[XMASYet] Firing!')
         async with self.config.channels() as channels:
-            await self.debug(f'[XMASYet] Firing!')
             for cid, val in channels.items():
                 if val:
                     c = self.bot.get_channel(int(cid))
