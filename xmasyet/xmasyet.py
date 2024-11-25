@@ -29,7 +29,7 @@ class XMASYetCog(commands.Cog):
         if out is not None:
             await out.send(message)
 
-    @tasks.loop(time=datetime.time(hour=23, minute=59, tzinfo=datetime.timezone.utc))
+    @tasks.loop(time=datetime.time(hour=23, minute=59, second=45, tzinfo=datetime.timezone.utc))
     async def ask_xmasyet(self):
         await self.publish_ask()
 
@@ -63,9 +63,10 @@ class XMASYetCog(commands.Cog):
 
     @checks.is_owner()
     @_xmasyet.command("set")
-    async def _xmasyet_set(self, ctx: commands.Context, hour: int, minute: int):
-        """Updates the daily run time. [p]xmasyet set <hours> <minutes>"""
-        self.ask_xmasyet.change_interval(time=datetime.time(hour=hour, minute=minute, tzinfo=datetime.timezone.utc))
+    async def _xmasyet_set(self, ctx: commands.Context, hour: int, minute: int, second: int):
+        """Updates the daily run time. [p]xmasyet set <hours> <minutes> <seconds>"""
+        self.ask_xmasyet.change_interval(time=datetime.time(hour=hour, minute=minute,
+                                                            second=second, tzinfo=datetime.timezone.utc))
         await ctx.channel.send(f"XMASYet run time updated!")
 
     @checks.is_owner()
