@@ -29,7 +29,7 @@ class XMASYetCog(commands.Cog):
         if out is not None:
             await out.send(message)
 
-    @tasks.loop(time=datetime.time(hour=23, minute=59, second=45, tzinfo=datetime.timezone.utc))
+    @tasks.loop(time=datetime.time(hour=11, minute=59, second=45, tzinfo=datetime.timezone.utc))
     async def ask_xmasyet(self):
         await self.publish_ask()
 
