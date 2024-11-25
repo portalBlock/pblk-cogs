@@ -38,7 +38,7 @@ class XMASYetCog(commands.Cog):
 
         self.config.register_global(**global_default_config)
 
-        await self.debug(f'[XMASYet] Loading timed task!')
+        self.debug(f'[XMASYet] Loading timed task!')
         self.ask_xmasyet.start()
 
     @commands.guild_only()
