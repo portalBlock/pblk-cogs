@@ -1,3 +1,5 @@
+import datetime
+import os
 from datetime import time
 
 from discord.ext import tasks
@@ -76,3 +78,7 @@ class XMASYetCog(commands.Cog):
         """Forces a manual run. [p]xmasyet run"""
         await ctx.send("Manually running!")
         await self.publish_ask()
+
+    @commands.command(name="time")
+    async def _time(self, ctx: commands.Context):
+        await ctx.send(f'System time: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
