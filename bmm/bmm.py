@@ -19,7 +19,7 @@ class BMMCog(commands.Cog):
 
         self.config.register_guild(**guild_default_config)
 
-    @commands.group("bmm")
+    @commands.group(name="bmm", pass_context=True, invoke_without_command=True)
     async def _bmm(self, ctx: commands.Context):
         now = datetime.utcnow().replace(tzinfo=timezone.utc)
         localized = now.astimezone(ZoneInfo(await self.config.guild(ctx.guild).timezone()))
@@ -33,7 +33,7 @@ class BMMCog(commands.Cog):
 
     @commands.guild_only()
     @checks.mod()
-    @_bmm.command("timezone", aliases=["tz"])
+    @_bmm.command(name="timezone", aliases=["tz"])
     async def _bmm_timezone(self, ctx: commands.Context, timezone: str):
         """Sets the timezone to handle days across the Earth."""
         if timezone not in zoneinfo.available_timezones():
