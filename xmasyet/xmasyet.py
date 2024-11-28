@@ -39,7 +39,7 @@ class XMASYetCog(commands.Cog):
                 if val:
                     c = self.bot.get_channel(int(cid))
                     if c is not None:
-                        await c.send("Is it Christmas yet?")
+                        await c.send("Is it Christmas yet? :christmas_tree: :santa:")
 
     @commands.guild_only()
     @checks.mod()
@@ -76,6 +76,3 @@ class XMASYetCog(commands.Cog):
         await ctx.send("Manually running!")
         await self.publish_ask()
 
-    @commands.command(name="time")
-    async def _time(self, ctx: commands.Context):
-        await ctx.send(f'System time: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
