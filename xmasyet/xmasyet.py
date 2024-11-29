@@ -14,7 +14,9 @@ class XMASYetCog(commands.Cog):
 
         global_default_config = {
             "debug": "",
-            "channels": {}
+            "channels": {
+                "123": False
+            }
         }
 
         self.config.register_global(**global_default_config)
