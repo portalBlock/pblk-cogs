@@ -17,13 +17,15 @@ class NotifiCog(commands.Cog):
             "timezone": "UTC",
             "messages": {
                 "0": {
-                    "0": [
-                        {
-                            "channel_id": "123",
-                            "name": "",
-                            "message": "Default message!"
-                        }
-                    ]
+                    "0": {
+                        "0": [
+                            {
+                                "channel_id": "123",
+                                "name": "",
+                                "message": "Default message!"
+                            }
+                        ]
+                    }
                 }
             }
         }
@@ -45,10 +47,11 @@ class NotifiCog(commands.Cog):
             messages = await self.config.guild(guild).messages()
             timezone = await self.config.guild(guild).timezone()
             localized = now.astimezone(zoneinfo.ZoneInfo(timezone))
+            day = str(localized.day)
             hour = str(localized.hour)
             minute = str(localized.minute)
-            if hour in messages and minute in messages[hour]:
-                for msg in messages[hour][minute]:
+            if day in messages and hour in messages[day] and minute in messages[day][hour]:
+                for msg in messages[day][hour][minute]:
                     cid = msg['channel_id']
                     c = self.bot.get_channel(int(cid))
                     if c is not None:
@@ -61,17 +64,17 @@ class NotifiCog(commands.Cog):
         pass
 
     @_notifi.command(name="add")
-    async def _notifi_add(self, ctx: commands.Context, hour: str, minute: str, name: str, *, message: str):
+    async def _notifi_add(self, ctx: commands.Context, day: str, hour: str, minute: str, name: str, *, message: str):
         """Add a scheduled notification."""
         async with self.config.guild(ctx.guild).messages() as messages:
             new = {"name": name, "channel_id": ctx.channel.id, "message": message}
-            if hour not in messages:
-                messages[hour] = {minute: [new]}
-            else:
-                if minute not in messages[hour]:
-                    messages[hour] = {minute: [new]}
-                else:
-                    messages[hour][minute].append(new)
+            if day not in message:
+                messages[day] = {}
+            if hour not in messages[day]:
+                messages[day][hour] = {}
+            if minute not in messages[day][hour]:
+                messages[day][hour][minute] = []
+            messages[day][hour][minute].append(new)
         await ctx.send("Scheduled message added!")
 
     @_notifi.command(name="timezone", aliases=["tz"])
