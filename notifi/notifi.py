@@ -41,12 +41,16 @@ class NotifiCog(commands.Cog):
     async def run_tasker(self):
         now = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
         for gid, gconfig in (await self.config.all_guilds()).items():
+            print(gid)
             localized = now.astimezone(zoneinfo.ZoneInfo(gconfig['timezone']))
             for hour, hfig in gconfig['messages'].items():
+                print(hour)
                 if localized.hour == int(hour):
                     for minute, mfig in hfig.items():
+                        print(minute)
                         if localized.minute == int(minute):
                             for message in mfig:
+                                print(message)
                                 c = self.bot.get_channel(int(message['channel_id']))
                                 if c is not None:
                                     await c.send(message['message'])
@@ -69,7 +73,7 @@ class NotifiCog(commands.Cog):
                     messages[hour] = {minute: [new]}
                 else:
                     messages[hour][minute].append(new)
-        await ctx.send("")
+        await ctx.send("Scheduled message added!")
 
     @_notifi.command(name="timezone", aliases=["tz"])
     async def _notifi_timezone(self, ctx: commands.Context, timezone: str):
