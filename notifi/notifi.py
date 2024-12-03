@@ -35,7 +35,7 @@ class NotifiCog(commands.Cog):
             messages = await self.config.guild(guild).messages()
             timezone = await self.config.guild(guild).timezone()
             localized = now.astimezone(zoneinfo.ZoneInfo(timezone))
-            day = str(localized.day)
+            day = str(localized.weekday())
             hour = str(localized.hour)
             minute = str(localized.minute)
             if day in messages and hour in messages[day] and minute in messages[day][hour]:
