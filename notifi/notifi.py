@@ -63,10 +63,12 @@ class NotifiCog(commands.Cog):
         async with self.config.guild(ctx.guild).messages() as messages:
             new = {"name": name, "channel_id": ctx.channel.id, "message": message}
             if hour not in messages:
-                messages[hour] = {}
-            if minute not in messages[hour]:
-                messages[hour][minute] = []
-            messages[hour][minute].append(new)
+                messages[hour] = {minute: [new]}
+            else:
+                if minute not in messages[hour]:
+                    messages[hour] = {minute: [new]}
+                else:
+                    messages[hour][minute].append(new)
         await ctx.send("")
 
     @_notifi.command(name="timezone", aliases=["tz"])
