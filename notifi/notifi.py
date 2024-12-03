@@ -35,7 +35,7 @@ class NotifiCog(commands.Cog):
     def cog_unload(self) -> None:
         self.notifi_task.cancel()
 
-    @tasks.loop(time=datetime.time(minute=1, tzinfo=datetime.timezone.utc))
+    @tasks.loop(minutes=1)
     async def notifi_task(self):
         await self.run_tasker()
 
