@@ -15,18 +15,7 @@ class NotifiCog(commands.Cog):
 
         guild_default_config = {
             "timezone": "UTC",
-            "messages": {
-                "0": {
-                    "0": {
-                        "0": [
-                            {
-                                "channel_id": "123",
-                                "name": "",
-                                "message": "Default message!"
-                            }]
-                    }
-                }
-            }
+            "messages": {}
         }
 
         self.config.register_guild(**guild_default_config)
