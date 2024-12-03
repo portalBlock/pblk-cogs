@@ -87,3 +87,4 @@ class NotifiCog(commands.Cog):
     async def _notifi_fire(self, ctx: commands.Context):
         """Sets the timezone to handle time across the Earth."""
         await ctx.send("Manually firing!")
+        await self.run_tasker()
