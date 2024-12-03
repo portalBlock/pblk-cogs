@@ -41,8 +41,9 @@ class NotifiCog(commands.Cog):
     async def run_tasker(self):
         now = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
         guilds = await self.config.all_guilds()
-        for hour, hfig in guilds['messages'].items():
-            print(hour)
+        for guild in guilds:
+            for hour, hfig in guild['messages'].items():
+                print(hour)
 
     @commands.guild_only()
     @checks.mod()
