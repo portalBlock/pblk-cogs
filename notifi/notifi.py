@@ -58,14 +58,15 @@ class NotifiCog(commands.Cog):
         pass
 
     @_notifi.command(name="add")
-    async def _notifi_add(self, ctx: commands.Context, hour: int, minute: int, name: str, *, message: str):
+    async def _notifi_add(self, ctx: commands.Context, hour: str, minute: str, name: str, *, message: str):
         """Add a scheduled notification."""
-        async with self.config.guild(ctx.guild).messages() as conf:
-            if str(hour) not in conf:
-                conf[str(hour)] = {}
-            if str(minute) not in conf[str(hour)]:
-                conf[str(hour)][str(minute)] = []
-            conf[str(hour)][str(minute)].append({"name": name, "channel_id": str(ctx.channel.id), "message": message})
+        async with self.config.guild(ctx.guild).messages() as messages:
+            new = {"name": name, "channel_id": ctx.channel.id, "message": message}
+            if hour not in messages:
+                messages[hour] = {}
+            if minute not in messages[hour]:
+                messages[hour][minute] = []
+            messages[hour][minute].append(new)
         await ctx.send("")
 
     @_notifi.command(name="timezone", aliases=["tz"])
