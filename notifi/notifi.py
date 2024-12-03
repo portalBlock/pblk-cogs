@@ -36,7 +36,6 @@ class NotifiCog(commands.Cog):
 
     @tasks.loop(time=datetime.time(minute=1, tzinfo=datetime.timezone.utc))
     async def notifi_task(self):
-        print("Firing")
         await self.run_tasker()
 
     async def run_tasker(self):
@@ -84,3 +83,9 @@ class NotifiCog(commands.Cog):
             return
         await self.config.guild(ctx.guild).timezone.set(timezone)
         await ctx.send("Timezone updated!")
+
+    @_notifi.command(name="fire")
+    async def _notifi_fire(self, ctx: commands.Context):
+        """Sets the timezone to handle time across the Earth."""
+        await ctx.send("Manually firing!")
+        await self.run_tasker()
