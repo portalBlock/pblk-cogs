@@ -40,24 +40,8 @@ class NotifiCog(commands.Cog):
 
     async def run_tasker(self):
         now = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
-        guilds = await self.config.all_guilds()
+        guilds = self.config.all_guilds()
         print(guilds)
-        for gid, guild in guilds.items():
-            print(gid)
-            print(guild)
-            print("Guild!")
-            localized = now.astimezone(zoneinfo.ZoneInfo(guild['timezone']))
-            for hour, hfig in guild['messages'].items():
-                print(hour)
-                if localized.hour == int(hour):
-                    for minute, mfig in hfig.items():
-                        print(minute)
-                        if localized.minute == int(minute):
-                            for message in mfig:
-                                print(message)
-                                c = self.bot.get_channel(int(message['channel_id']))
-                                if c is not None:
-                                    await c.send(message['message'])
 
     @commands.guild_only()
     @checks.mod()
