@@ -41,6 +41,7 @@ class NotifiCog(commands.Cog):
     async def run_tasker(self):
         now = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
         guilds = await self.config.all_guilds()
+        print(guilds)
         for gid, guild in guilds.items():
             print(gid)
             print(guild)
