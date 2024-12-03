@@ -1,0 +1,12 @@
+{
+  "author": [
+    "portalBlock"
+  ],
+  "short": "Notifi",
+  "description": "Send scheduled messages!",
+  "disabled": false,
+  "name": "notifi",
+  "tags": [],
+  "install_msg": "Usage: `[p]notifi`",
+  "min_bot_version": "3.5.1"
+}
