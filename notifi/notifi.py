@@ -41,6 +41,18 @@ class NotifiCog(commands.Cog):
 
     async def run_tasker(self):
         now = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
+        for guild in self.bot.guilds:
+            messages = await self.config.guild(guild).messages()
+            timezone = await self.config.guild(guild).timezone()
+            localized = now.astimezone(zoneinfo.ZoneInfo(timezone))
+            hour = str(localized.hour)
+            minute = str(localized.minute)
+            if hour in messages and minute in messages[hour]:
+                for msg in messages[hour][minute]:
+                    cid = msg['channel_id']
+                    c = self.bot.get_channel(int(cid))
+                    if c is not None:
+                        await c.send(msg['message'])
 
     @commands.guild_only()
     @checks.mod()
@@ -75,6 +87,3 @@ class NotifiCog(commands.Cog):
     async def _notifi_fire(self, ctx: commands.Context):
         """Sets the timezone to handle time across the Earth."""
         await ctx.send("Manually firing!")
-        for guild in self.bot.guilds:
-            messages = await self.config.guild(guild).messages()
-            await ctx.send(messages)
