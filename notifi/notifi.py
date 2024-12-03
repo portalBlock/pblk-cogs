@@ -43,8 +43,7 @@ class NotifiCog(commands.Cog):
         now = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
         for guild in self.bot.guilds:
             gconf = self.config.guild(guild)
-            for hour, hfig in gconf.messages.items():
-                print(hour)
+            print(gconf)
 
     @commands.guild_only()
     @checks.mod()
