@@ -3,12 +3,13 @@ import datetime
 
 from discord.ext import tasks
 from redbot.core import commands, Config, checks
+from redbot.core.bot import Red
 
 
 class NotifiCog(commands.Cog):
     """Notifi Cog"""
 
-    def __init__(self, bot):
+    def __init__(self, bot: Red):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=1289862744207523841006)
 
@@ -40,11 +41,9 @@ class NotifiCog(commands.Cog):
 
     async def run_tasker(self):
         now = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
-        guildlist = await self.config.all_guilds()
-        guilds = guildlist.values()
-        for guild in guilds:
-            print(guild)
-            for hour, hfig in guild['messages'].items():
+        for guild in self.bot.guilds:
+            gconf = await self.config.guild(guild)
+            for hour, hfig in gconf.messages.items():
                 print(hour)
 
     @commands.guild_only()
