@@ -40,7 +40,7 @@ class NotifiCog(commands.Cog):
 
     async def run_tasker(self):
         now = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
-        for gid, guild in (await self.config.all_guilds()).items():
+        for guild in (await self.config.all_guilds()).values():
             print("Guild!")
             localized = now.astimezone(zoneinfo.ZoneInfo(guild['timezone']))
             for hour, hfig in guild['messages'].items():
