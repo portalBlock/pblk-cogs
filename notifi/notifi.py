@@ -16,8 +16,11 @@ class NotifiCog(commands.Cog):
         guild_default_config = {
             "timezone": "UTC",
             "messages": {
+                # Day
                 "0": {
+                    # Hour
                     "0": {
+                        # Minute
                         "0": [
                             {
                                 "channel_id": "123",
