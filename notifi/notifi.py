@@ -60,7 +60,7 @@ class NotifiCog(commands.Cog):
     @_notifi.command(name="add")
     async def _notifi_add(self, ctx: commands.Context, hour: int, minute: int, name: str, *, message: str):
         """Add a scheduled notification."""
-        with self.config.guild(ctx.guild).messages() as conf:
+        async with self.config.guild(ctx.guild).messages() as conf:
             conf[str(hour)][str(minute)].append({"name": name, "channel_id": str(ctx.channel.id), "message": message})
         await ctx.send("")
 
