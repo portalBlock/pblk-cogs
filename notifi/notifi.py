@@ -43,6 +43,7 @@ class NotifiCog(commands.Cog):
         guildlist = await self.config.all_guilds()
         guilds = guildlist.values()
         for guild in guilds:
+            print(guild)
             for hour, hfig in guild['messages'].items():
                 print(hour)
 
