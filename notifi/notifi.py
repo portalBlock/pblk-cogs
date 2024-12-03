@@ -36,6 +36,7 @@ class NotifiCog(commands.Cog):
 
     @tasks.loop(time=datetime.time(minute=1, tzinfo=datetime.timezone.utc))
     async def notifi_task(self):
+        print("Firing")
         await self.run_tasker()
 
     async def run_tasker(self):
